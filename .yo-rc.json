@@ -1,0 +1,26 @@
+{
+  "generator-jhipster": {
+    "jhipsterVersion": "6.10.5",
+    "applicationType": "monolith",
+    "baseName": "jhipsterFrontEnd",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "angularX",
+    "clientTheme": "none",
+    "clientThemeVariant": "",
+    "authenticationType": "jwt",
+    "cacheProvider": "no",
+    "databaseType": "mongodb",
+    "devDatabaseType": "mongodb",
+    "prodDatabaseType": "mongodb",
+    "creationTimestamp": 1611054530937,
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": false,
+    "blueprints": [],
+    "skipServer": true
+  }
+}
