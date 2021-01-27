@@ -1,22 +1,31 @@
-<div class="row justify-content-center">
+
+ <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="event">
-            <h2><span>Event</span> {{ event.id }}</h2>
+            <h2> {{ event.name }}</h2>
 
             <hr>
 
             <jhi-alert-error></jhi-alert-error>
 
             <dl class="row-md jh-entity-details">
-                <dt><span>Day</span></dt>
+
+                <dt><span>Spot</span></dt>
                 <dd>
-                    <span>{{ event.day }}</span>
+                    <div *ngIf="event.spot">
+                        <a [routerLink]="['/spot', event.spot?.id, 'view']">{{ event.spot?.name }}</a>
+                    </div>
                 </dd>
-                <dt><span>Day String</span></dt>
+
+                <dt><span>Date</span></dt>
                 <dd>
                     <span>{{ event.dayString }}</span>
                 </dd>
-            </dl>
+
+               </dl>  
+            
+
+
 
             <button type="submit"
                     (click)="previousState()"
@@ -29,6 +38,34 @@
                     class="btn btn-primary">
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
             </button>
+       
+    
+
+    <div class="table-responsive" id="entities" *ngIf="tricks && tricks.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span>ID</span></th>
+                    <th scope="col" ><span>Name</span></th>
+                    <th scope="col" ><span>Objective Amount</span></th>
+                    <th scope="col" ><span>Current Amount</span></th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let trick of tricks ;trackBy: trackId">
+                    <td><a [routerLink]="['/trick', trick.id, 'view']">{{ trick.id }}</a></td>
+                    <td>{{ trick.name }}</td>
+                    <td>{{ trick.objectiveAmount }}</td>
+                    <td>{{ trick.currentAmount }}</td>
+                   
+                </tr>
+            </tbody>
+        </table>
         </div>
+    
     </div>
+   
+    </div>
+
 </div>

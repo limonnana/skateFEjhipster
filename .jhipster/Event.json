@@ -5,19 +5,25 @@
     {
       "relationshipName": "trick",
       "otherEntityName": "trick",
-      "relationshipType": "one-to-many",
-      "otherEntityRelationshipName": "event"
+      "relationshipType": "one-to-many"
     },
     {
       "relationshipName": "fan",
       "otherEntityName": "fan",
-      "relationshipType": "one-to-many",
-      "otherEntityRelationshipName": "event"
-    },
+      "relationshipType": "one-to-many"
+  }
     {
       "relationshipName": "player",
       "otherEntityName": "player",
-      "relationshipType": "one-to-many",
+      "relationshipType": "one-to-many"
+     
+    },
+    {
+      "relationshipName": "spot",
+      "otherEntityName": "spot",
+      "relationshipType": "one-to-one",
+      "otherEntityField": "name",
+      "ownerSide": true,
       "otherEntityRelationshipName": "event"
     }
   ],
@@ -28,6 +34,10 @@
     },
     {
       "fieldName": "dayString",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "name",
       "fieldType": "String"
     }
   ],

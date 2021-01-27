@@ -8,6 +8,8 @@ import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IEvent } from 'app/shared/model/event.model';
+import { IAddTrick } from 'app/shared/model/addTrick.model';
+import { ITrick } from 'app/shared/model/trick.model';
 
 type EntityResponseType = HttpResponse<IEvent>;
 type EntityArrayResponseType = HttpResponse<IEvent[]>;
@@ -29,6 +31,12 @@ export class EventService {
     const copy = this.convertDateFromClient(event);
     return this.http
       .put<IEvent>(this.resourceUrl, copy, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  addTrick(addTrick: IAddTrick): Observable<EntityResponseType> {
+    return this.http
+      .put<ITrick>(`${this.resourceUrl}/addTrick`, addTrick, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 

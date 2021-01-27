@@ -7,10 +7,11 @@ import { EventDetailComponent } from './event-detail.component';
 import { EventUpdateComponent } from './event-update.component';
 import { EventDeleteDialogComponent } from './event-delete-dialog.component';
 import { eventRoute } from './event.route';
+import { AddTrickComponent } from './add-trick/add-trick.component';
 
 @NgModule({
   imports: [JhipsterFrontEndSharedModule, RouterModule.forChild(eventRoute)],
-  declarations: [EventComponent, EventDetailComponent, EventUpdateComponent, EventDeleteDialogComponent],
+  declarations: [EventComponent, EventDetailComponent, EventUpdateComponent, EventDeleteDialogComponent, AddTrickComponent],
   entryComponents: [EventDeleteDialogComponent],
 })
 export class JhipsterFrontEndEventModule {}

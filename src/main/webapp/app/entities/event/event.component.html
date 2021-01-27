@@ -25,6 +25,8 @@
                     <th scope="col" ><span>ID</span></th>
                     <th scope="col" ><span>Day</span></th>
                     <th scope="col" ><span>Day String</span></th>
+                    <th scope="col" ><span>Name</span></th>
+                    <th scope="col" ><span>Spot</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -33,8 +35,25 @@
                     <td><a [routerLink]="['/event', event.id, 'view']">{{ event.id }}</a></td>
                     <td>{{ event.day | date:'mediumDate' }}</td>
                     <td>{{ event.dayString }}</td>
+                    <td>{{ event.name }}</td>
+                    <td>
+                        <div *ngIf="event.spot">
+                            <a [routerLink]="['/spot', event.spot?.id, 'view']" >{{ event.spot?.name }}</a>
+                        </div>
+                    </td>
+
+
                     <td class="text-right">
-                        <div class="btn-group">
+                    <div class="btn-group">
+                       
+                                <button type="submit"
+                                        [routerLink]="['/event', event.id, 'addTrickToEvent']"
+                                        class="btn btn-info btn-sm">
+                                    <fa-icon icon="plus"></fa-icon>
+                                    <span class="d-none d-md-inline">Add Trick</span>
+                                </button>
+
+
                             <button type="submit"
                                     [routerLink]="['/event', event.id, 'view']"
                                     class="btn btn-info btn-sm">
