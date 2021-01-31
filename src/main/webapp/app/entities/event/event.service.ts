@@ -10,6 +10,8 @@ import { createRequestOption } from 'app/shared/util/request-util';
 import { IEvent } from 'app/shared/model/event.model';
 import { IAddTrick } from 'app/shared/model/addTrick.model';
 import { ITrick } from 'app/shared/model/trick.model';
+import { IAddPlayer } from 'app/shared/model/addPlayer.model';
+import { IPlayer } from 'app/shared/model/player.model';
 
 type EntityResponseType = HttpResponse<IEvent>;
 type EntityArrayResponseType = HttpResponse<IEvent[]>;
@@ -37,6 +39,12 @@ export class EventService {
   addTrick(addTrick: IAddTrick): Observable<EntityResponseType> {
     return this.http
       .put<ITrick>(`${this.resourceUrl}/addTrick`, addTrick, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  addPlayer(addPlayer: IAddPlayer): Observable<EntityResponseType> {
+    return this.http
+      .put<IPlayer>(`${this.resourceUrl}/addPlayer`, addPlayer, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 

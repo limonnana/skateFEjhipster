@@ -38,26 +38,61 @@
                     class="btn btn-primary">
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
             </button>
+
+            <button type="submit"
+            [routerLink]="['/event', event.id, 'addTrickToEvent']"
+            class="btn btn-primary">
+           <fa-icon icon="plus"></fa-icon>
+           <span>Add Trick</span>
+           </button>
+
+           <button type="submit"
+            [routerLink]="['/event', event.id, 'addPlayerToEvent']"
+            class="btn btn-primary">
+           <fa-icon icon="plus"></fa-icon>
+           <span>Add Player</span>
+           </button>
        
     
-
+    <div style="margin-top: 30px;">&nbsp;</div>
     <div class="table-responsive" id="entities" *ngIf="tricks && tricks.length > 0">
+        <h3>Tricks</h3>
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr>
-                    <th scope="col" ><span>ID</span></th>
+                    
                     <th scope="col" ><span>Name</span></th>
-                    <th scope="col" ><span>Objective Amount</span></th>
+                    <th scope="col" ><span>Target Amount</span></th>
                     <th scope="col" ><span>Current Amount</span></th>
                    
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let trick of tricks ;trackBy: trackId">
-                    <td><a [routerLink]="['/trick', trick.id, 'view']">{{ trick.id }}</a></td>
-                    <td>{{ trick.name }}</td>
+                  
+                    <td><a [routerLink]="['/trick', trick.id, 'view']">{{ trick.name }}</a></td></td>
                     <td>{{ trick.objectiveAmount }}</td>
                     <td>{{ trick.currentAmount }}</td>
+                   
+                </tr>
+            </tbody>
+        </table>
+        </div>
+
+        <div style="margin-top: 30px;">&nbsp;</div>
+    <div class="table-responsive" id="entities" *ngIf="players && players.length > 0">
+        <h3>Players</h3>
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span>Name</span></th>
+                    <th scope="col" ><span>Last Name</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let player of players ;trackBy: trackPlayerId">
+                    <td><a [routerLink]="['/player', player.id, 'view']">{{ player.name }}</a></td>
+                    <td>{{ player.lastName }}</td>
                    
                 </tr>
             </tbody>

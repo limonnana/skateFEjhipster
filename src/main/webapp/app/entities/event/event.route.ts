@@ -12,6 +12,7 @@ import { EventComponent } from './event.component';
 import { EventDetailComponent } from './event-detail.component';
 import { EventUpdateComponent } from './event-update.component';
 import { AddTrickComponent } from './add-trick/add-trick.component';
+import { AddPlayerComponent } from './add-player/add-player.component';
 
 @Injectable({ providedIn: 'root' })
 export class EventResolve implements Resolve<IEvent> {
@@ -84,6 +85,18 @@ export const eventRoute: Routes = [
   {
     path: ':id/addTrickToEvent',
     component: AddTrickComponent,
+    resolve: {
+      event: EventResolve,
+    },
+    data: {
+      authorities: [Authority.USER],
+      pageTitle: 'Events',
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: ':id/addPlayerToEvent',
+    component: AddPlayerComponent,
     resolve: {
       event: EventResolve,
     },

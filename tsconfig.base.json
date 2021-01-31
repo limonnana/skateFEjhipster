@@ -12,6 +12,7 @@
     "suppressImplicitAnyIndexErrors": true,
     "skipLibCheck": true,
     "outDir": "build/resources/main/static/app",
+    "types": ["node"],
     "lib": ["es7", "dom"],
     "baseUrl": "./",
     "paths": {
