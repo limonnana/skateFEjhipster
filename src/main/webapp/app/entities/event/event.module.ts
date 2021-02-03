@@ -9,6 +9,7 @@ import { EventDeleteDialogComponent } from './event-delete-dialog.component';
 import { eventRoute } from './event.route';
 import { AddTrickComponent } from './add-trick/add-trick.component';
 import { AddPlayerComponent } from './add-player/add-player.component';
+import { AddImageComponent } from './add-image/add-image.component';
 
 @NgModule({
   imports: [JhipsterFrontEndSharedModule, RouterModule.forChild(eventRoute)],
@@ -19,6 +20,7 @@ import { AddPlayerComponent } from './add-player/add-player.component';
     EventDeleteDialogComponent,
     AddTrickComponent,
     AddPlayerComponent,
+    AddImageComponent,
   ],
   entryComponents: [EventDeleteDialogComponent],
 })

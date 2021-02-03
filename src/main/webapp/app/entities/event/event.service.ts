@@ -36,6 +36,12 @@ export class EventService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
+  addImage(fileData: FormData): Observable<EntityResponseType> {
+    return this.http
+      .post<IEvent>(`${this.resourceUrl}/addImage`, fileData, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
   addTrick(addTrick: IAddTrick): Observable<EntityResponseType> {
     return this.http
       .put<ITrick>(`${this.resourceUrl}/addTrick`, addTrick, { observe: 'response' })

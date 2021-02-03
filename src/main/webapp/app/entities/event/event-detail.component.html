@@ -24,8 +24,10 @@
 
                </dl>  
             
-
-
+             <img [src]="transform()">
+             
+               <br><br>
+              
 
             <button type="submit"
                     (click)="previousState()"
@@ -52,6 +54,13 @@
            <fa-icon icon="plus"></fa-icon>
            <span>Add Player</span>
            </button>
+
+           <button type="submit"
+           [routerLink]="['/event', event.id, 'addImageToEvent']"
+           class="btn btn-primary">
+          <fa-icon icon="plus"></fa-icon>
+          <span>Add Image</span>
+          </button>
        
     
     <div style="margin-top: 30px;">&nbsp;</div>
