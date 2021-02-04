@@ -25,9 +25,10 @@ export class AddImageForm {
 })
 export class AddImageComponent implements OnInit {
   event?: IEvent;
-  base64textString: string = '';
+  base64textString = '';
   isSaving = false;
   imageSrc?: string;
+  titles: string[] = ['photo_big_1', 'photo_medium_2', 'photo_medium_3'];
   addImageForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
     file: new FormControl('', [Validators.required]),
@@ -73,7 +74,8 @@ export class AddImageComponent implements OnInit {
     const formData = new FormData();
     formData.append('idEvent', this.event?.id as string);
     formData.append('title', this.addImageForm.get(['title'])!.value);
-    //formData.append('file' ,this.imageSrc!);
+    // formData.append('file' ,this.imageSrc!);
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     formData.append('file', this.base64textString!);
 
     return formData;
@@ -99,25 +101,25 @@ export class AddImageComponent implements OnInit {
     window.history.back();
   }
 
-  handleFileSelect(evt: any) {
-    var files = evt.target.files;
-    var file = files[0];
+  handleFileSelect(evt: any): void {
+    const files = evt.target.files;
+    const file = files[0];
 
     if (files && file) {
-      var reader = new FileReader();
+      const reader = new FileReader();
 
       reader.onload = this._handleReaderLoaded.bind(this);
 
-      //reader.readAsDataURL(file);
+      // reader.readAsDataURL(file);
 
-      //this.imageSrc = reader.result as string;
+      // this.imageSrc = reader.result as string;
 
       reader.readAsBinaryString(file);
     }
   }
 
-  _handleReaderLoaded(readerEvt: any) {
-    var binaryString = readerEvt.target.result;
+  _handleReaderLoaded(readerEvt: any): void {
+    const binaryString = readerEvt.target.result;
     this.base64textString = btoa(binaryString);
   }
 }

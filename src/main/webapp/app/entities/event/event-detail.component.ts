@@ -4,9 +4,11 @@ import { IEvent } from 'app/shared/model/event.model';
 import { IPlayer } from 'app/shared/model/player.model';
 import { ITrick } from 'app/shared/model/trick.model';
 import { IPhoto } from 'app/shared/model/photo.model';
-import { DomSanitizer } from '@angular/platform-browser';
-
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { TrickService } from '../trick/trick.service';
+import { EventService } from './event.service';
+import { Observable } from 'rxjs';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'jhi-event-detail',
@@ -19,7 +21,12 @@ export class EventDetailComponent implements OnInit {
   photos?: IPhoto[];
   base64textString?: string;
 
-  constructor(protected activatedRoute: ActivatedRoute, protected trickService: TrickService, private sanitizer: DomSanitizer) {}
+  constructor(
+    protected activatedRoute: ActivatedRoute,
+    protected trickService: TrickService,
+    private sanitizer: DomSanitizer,
+    private eventService: EventService
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ event }) => {
@@ -27,11 +34,6 @@ export class EventDetailComponent implements OnInit {
       this.tricks = event.tricks;
       this.players = event.players;
       this.photos = event.photos;
-      const photo: IPhoto = event.photos[0];
-
-      if (this.photos !== null) {
-        this.base64textString = 'data:image/png;base64,' + photo.image!;
-      }
     });
   }
 
@@ -48,7 +50,44 @@ export class EventDetailComponent implements OnInit {
   previousState(): void {
     window.history.back();
   }
-  transform() {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(this.base64textString!);
+  transform(title: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(this.getPhotoSrcFromArray(title)!);
   }
+
+  getPhotoSrcFromArray(title: string): string | undefined {
+    const photoFromArray = this.photos?.find(photo => photo.title === title);
+    const src = photoFromArray?.image;
+    return 'data:image/png;base64,' + src;
+  }
+
+  getPhotoIdFromArray(title: string): string | undefined {
+    const photoFromArray = this.photos?.find(photo => photo.title === title);
+    const src = photoFromArray?.id;
+    return src;
+  }
+
+  delete(title: string): void {
+    this.subscribeToSaveResponse(this.eventService.deleteImage(this.createForm(title)!));
+  }
+
+  private createForm(title: string): FormData {
+    const formData = new FormData();
+    formData.append('idEvent', this.event?.id as string);
+    formData.append('idImage', this.getPhotoIdFromArray(title)!);
+
+    return formData;
+  }
+
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IEvent>>): void {
+    result.subscribe(
+      () => this.onSaveSuccess(),
+      () => this.onSaveError()
+    );
+  }
+
+  protected onSaveSuccess(): void {
+    this.previousState();
+  }
+
+  protected onSaveError(): void {}
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs';
+import { catchError, map, retry } from 'rxjs/operators';
 import * as moment from 'moment';
 
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
@@ -39,6 +39,12 @@ export class EventService {
   addImage(fileData: FormData): Observable<EntityResponseType> {
     return this.http
       .post<IEvent>(`${this.resourceUrl}/addImage`, fileData, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  deleteImage(fileData: FormData): Observable<EntityResponseType> {
+    return this.http
+      .post<IEvent>(`${this.resourceUrl}/deleteImage`, fileData, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
@@ -92,5 +98,18 @@ export class EventService {
       });
     }
     return res;
+  }
+
+  protected handleError(error: { error: { message: string }; status: any; message: any }) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // Get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // Get server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    window.alert(errorMessage);
+    return throwError(errorMessage);
   }
 }

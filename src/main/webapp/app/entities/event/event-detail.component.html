@@ -8,26 +8,40 @@
 
             <jhi-alert-error></jhi-alert-error>
 
-            <dl class="row-md jh-entity-details">
+            <div style="margin-bottom: 25px;">
+               <b> Spot: {{ event.spot?.name }} Date: {{ event.dayString }}</b>
+            </div>
 
-                <dt><span>Spot</span></dt>
-                <dd>
-                    <div *ngIf="event.spot">
-                        <a [routerLink]="['/spot', event.spot?.id, 'view']">{{ event.spot?.name }}</a>
-                    </div>
-                </dd>
-
-                <dt><span>Date</span></dt>
-                <dd>
-                    <span>{{ event.dayString }}</span>
-                </dd>
-
-               </dl>  
-            
-             <img [src]="transform()">
+            <div *ngIf="transform('photo_big_1')">
+             <img [src]="transform('photo_big_1')" class="img-thumbnail"> 
+             <br>
+             <button type="submit" (click)="delete('photo_big_1')"
+             class="btn btn-danger btn-sm">
+         <fa-icon icon="times"></fa-icon>
+         <span class="d-none d-md-inline">Delete</span>
+     </button>
+     </div>
              
+             <br><br>
+             <img [src]="transform('photo_medium_2')" class="img-thumbnail"> 
+               <br>
+               <button type="submit" (click)="delete('photo_medium_2')"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                </button>
+               
                <br><br>
-              
+            <img [src]="transform('photo_medium_3')" class="img-thumbnail"> 
+              <br>
+              <button type="submit" (click)="delete('photo_medium_3')"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+             </button>
+              <br>
+              <br>
+              <br>
 
             <button type="submit"
                     (click)="previousState()"
