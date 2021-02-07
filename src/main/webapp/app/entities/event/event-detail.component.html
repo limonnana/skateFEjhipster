@@ -12,8 +12,8 @@
                <b> Spot: {{ event.spot?.name }} Date: {{ event.dayString }}</b>
             </div>
 
-            <div *ngIf="transform('photo_big_1')">
-             <img [src]="transform('photo_big_1')" class="img-thumbnail"> 
+            <div *ngIf='isPhotoBig1'>
+             <img [src]='photoBig1' class="img-thumbnail"> 
              <br>
              <button type="submit" (click)="delete('photo_big_1')"
              class="btn btn-danger btn-sm">
@@ -23,22 +23,25 @@
      </div>
              
              <br><br>
-             <img [src]="transform('photo_medium_2')" class="img-thumbnail"> 
+             <div *ngIf='isPhotoMedium2'>
+             <img [src]="photoMedium2" class="img-thumbnail"> 
                <br>
                <button type="submit" (click)="delete('photo_medium_2')"
                                     class="btn btn-danger btn-sm">
                                 <fa-icon icon="times"></fa-icon>
                                 <span class="d-none d-md-inline">Delete</span>
                 </button>
-               
+               </div>
                <br><br>
-            <img [src]="transform('photo_medium_3')" class="img-thumbnail"> 
+            <div *ngIf='isPhotoMedium3'>
+            <img [src]="photoMedium3" class="img-thumbnail"> 
               <br>
               <button type="submit" (click)="delete('photo_medium_3')"
                                     class="btn btn-danger btn-sm">
                                 <fa-icon icon="times"></fa-icon>
                                 <span class="d-none d-md-inline">Delete</span>
              </button>
+             </div>
               <br>
               <br>
               <br>

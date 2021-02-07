@@ -20,6 +20,12 @@ export class EventDetailComponent implements OnInit {
   players?: IPlayer[];
   photos?: IPhoto[];
   base64textString?: string;
+  photoBig1?: SafeResourceUrl;
+  isPhotoBig1 = false;
+  photoMedium2?: SafeResourceUrl;
+  isPhotoMedium2 = false;
+  photoMedium3?: SafeResourceUrl;
+  isPhotoMedium3 = false;
 
   constructor(
     protected activatedRoute: ActivatedRoute,
@@ -34,6 +40,7 @@ export class EventDetailComponent implements OnInit {
       this.tricks = event.tricks;
       this.players = event.players;
       this.photos = event.photos;
+      this.getPhotoSrc();
     });
   }
 
@@ -50,14 +57,15 @@ export class EventDetailComponent implements OnInit {
   previousState(): void {
     window.history.back();
   }
-  transform(title: string): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(this.getPhotoSrcFromArray(title)!);
+  transform(src: string): SafeResourceUrl {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+    return this.sanitizer.bypassSecurityTrustResourceUrl(src!);
   }
 
   getPhotoSrcFromArray(title: string): string | undefined {
     const photoFromArray = this.photos?.find(photo => photo.title === title);
     const src = photoFromArray?.image;
-    return 'data:image/png;base64,' + src;
+    return src;
   }
 
   getPhotoIdFromArray(title: string): string | undefined {
@@ -90,4 +98,26 @@ export class EventDetailComponent implements OnInit {
   }
 
   protected onSaveError(): void {}
+
+  protected getPhotoSrc(): void {
+    let photo1 = this.getPhotoSrcFromArray('photo_big_1');
+    let photo2 = this.getPhotoSrcFromArray('photo_medium_2');
+    let photo3 = this.getPhotoSrcFromArray('photo_medium_3');
+
+    if (photo1 !== undefined) {
+      this.isPhotoBig1 = true;
+      photo1 = 'data:image/png;base64,' + photo1;
+      this.photoBig1 = this.transform(photo1);
+    }
+    if (photo2 !== undefined) {
+      this.isPhotoMedium2 = true;
+      photo2 = 'data:image/png;base64,' + photo2;
+      this.photoMedium2 = this.transform(photo2);
+    }
+    if (photo3 !== undefined) {
+      this.isPhotoMedium3 = true;
+      photo3 = 'data:image/png;base64,' + photo3;
+      this.photoMedium3 = this.transform(photo3);
+    }
+  }
 }
