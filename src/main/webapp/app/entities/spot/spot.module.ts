@@ -7,10 +7,11 @@ import { SpotDetailComponent } from './spot-detail.component';
 import { SpotUpdateComponent } from './spot-update.component';
 import { SpotDeleteDialogComponent } from './spot-delete-dialog.component';
 import { spotRoute } from './spot.route';
+import { AddImageToSpotComponent } from './add-image-to-spot/add-image-to-spot.component';
 
 @NgModule({
   imports: [JhipsterFrontEndSharedModule, RouterModule.forChild(spotRoute)],
-  declarations: [SpotComponent, SpotDetailComponent, SpotUpdateComponent, SpotDeleteDialogComponent],
+  declarations: [SpotComponent, SpotDetailComponent, SpotUpdateComponent, SpotDeleteDialogComponent, AddImageToSpotComponent],
   entryComponents: [SpotDeleteDialogComponent],
 })
 export class JhipsterFrontEndSpotModule {}

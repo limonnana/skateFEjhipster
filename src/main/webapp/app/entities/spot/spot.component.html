@@ -24,7 +24,6 @@
                 <tr>
                     <th scope="col" ><span>ID</span></th>
                     <th scope="col" ><span>Name</span></th>
-                    <th scope="col" ><span>Img Path</span></th>
                     <th scope="col" ><span>Description</span></th>
                     <th scope="col"></th>
                 </tr>
@@ -33,7 +32,6 @@
                 <tr *ngFor="let spot of spots ;trackBy: trackId">
                     <td><a [routerLink]="['/spot', spot.id, 'view']">{{ spot.id }}</a></td>
                     <td>{{ spot.name }}</td>
-                    <td>{{ spot.imgPath }}</td>
                     <td>{{ spot.description }}</td>
                     <td class="text-right">
                         <div class="btn-group">

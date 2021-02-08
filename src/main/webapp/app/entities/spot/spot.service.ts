@@ -23,6 +23,14 @@ export class SpotService {
     return this.http.put<ISpot>(this.resourceUrl, spot, { observe: 'response' });
   }
 
+  addImage(fileData: FormData): Observable<EntityResponseType> {
+    return this.http.post<ISpot>(`${this.resourceUrl}/addImage`, fileData, { observe: 'response' });
+  }
+
+  deleteImage(fileData: FormData): Observable<EntityResponseType> {
+    return this.http.post<ISpot>(`${this.resourceUrl}/deleteImage`, fileData, { observe: 'response' });
+  }
+
   find(id: string): Observable<EntityResponseType> {
     return this.http.get<ISpot>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }

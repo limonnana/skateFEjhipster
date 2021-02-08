@@ -34,7 +34,6 @@ export class SpotUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: spot.id,
       name: spot.name,
-      imgPath: spot.imgPath,
       description: spot.description,
     });
   }
@@ -58,7 +57,6 @@ export class SpotUpdateComponent implements OnInit {
       ...new Spot(),
       id: this.editForm.get(['id'])!.value,
       name: this.editForm.get(['name'])!.value,
-      imgPath: this.editForm.get(['imgPath'])!.value,
       description: this.editForm.get(['description'])!.value,
     };
   }

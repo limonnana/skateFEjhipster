@@ -11,6 +11,7 @@ import { SpotService } from './spot.service';
 import { SpotComponent } from './spot.component';
 import { SpotDetailComponent } from './spot-detail.component';
 import { SpotUpdateComponent } from './spot-update.component';
+import { AddImageToSpotComponent } from './add-image-to-spot/add-image-to-spot.component';
 
 @Injectable({ providedIn: 'root' })
 export class SpotResolve implements Resolve<ISpot> {
@@ -71,6 +72,18 @@ export const spotRoute: Routes = [
   {
     path: ':id/edit',
     component: SpotUpdateComponent,
+    resolve: {
+      spot: SpotResolve,
+    },
+    data: {
+      authorities: [Authority.USER],
+      pageTitle: 'Spots',
+    },
+    canActivate: [UserRouteAccessService],
+  },
+  {
+    path: ':id/addImageToSpot',
+    component: AddImageToSpotComponent,
     resolve: {
       spot: SpotResolve,
     },
