@@ -20,7 +20,6 @@ export class FanUpdateComponent implements OnInit {
     fullName: [null, [Validators.required]],
     email: [],
     phone: [],
-    imgPath: [],
   });
 
   constructor(protected fanService: FanService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -37,7 +36,6 @@ export class FanUpdateComponent implements OnInit {
       fullName: fan.fullName,
       email: fan.email,
       phone: fan.phone,
-      imgPath: fan.imgPath,
     });
   }
 
@@ -62,7 +60,6 @@ export class FanUpdateComponent implements OnInit {
       fullName: this.editForm.get(['fullName'])!.value,
       email: this.editForm.get(['email'])!.value,
       phone: this.editForm.get(['phone'])!.value,
-      imgPath: this.editForm.get(['imgPath'])!.value,
     };
   }
 

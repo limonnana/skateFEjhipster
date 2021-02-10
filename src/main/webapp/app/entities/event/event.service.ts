@@ -19,6 +19,7 @@ type EntityArrayResponseType = HttpResponse<IEvent[]>;
 @Injectable({ providedIn: 'root' })
 export class EventService {
   public resourceUrl = SERVER_API_URL + 'api/events';
+  public resourceUrlHome = SERVER_API_URL + 'api';
 
   constructor(protected http: HttpClient) {}
 
@@ -63,6 +64,12 @@ export class EventService {
   find(id: string): Observable<EntityResponseType> {
     return this.http
       .get<IEvent>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  getActive(): Observable<EntityResponseType> {
+    return this.http
+      .get<IEvent>(`${this.resourceUrl}/active`, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 

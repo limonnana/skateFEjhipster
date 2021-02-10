@@ -27,6 +27,7 @@
                     <th scope="col" ><span>Day String</span></th>
                     <th scope="col" ><span>Name</span></th>
                     <th scope="col" ><span>Spot</span></th>
+                    <th scope="col" ><span>Active</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -41,9 +42,13 @@
                             <a [routerLink]="['/spot', event.spot?.id, 'view']" >{{ event.spot?.name }}</a>
                         </div>
                     </td>
+                    <td> 
+                         <fa-icon *ngIf="event.active"  icon="check"></fa-icon>
+                         <span *ngIf="!event.active"><b> &nbsp; --- </b></span>
+                    
+                    </td>
 
-
-                    <td class="text-right">
+                    <td class="text-right"> 
                     <div class="btn-group">
                        
 

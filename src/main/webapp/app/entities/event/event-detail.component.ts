@@ -57,6 +57,7 @@ export class EventDetailComponent implements OnInit {
   previousState(): void {
     window.history.back();
   }
+
   transform(src: string): SafeResourceUrl {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     return this.sanitizer.bypassSecurityTrustResourceUrl(src!);

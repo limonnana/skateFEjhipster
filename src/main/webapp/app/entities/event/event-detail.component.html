@@ -96,7 +96,7 @@
             <tbody>
                 <tr *ngFor="let trick of tricks ;trackBy: trackId">
                   
-                    <td><a [routerLink]="['/trick', trick.id, 'view']">{{ trick.name }}</a></td></td>
+                    <td><a [routerLink]="['/trick', trick.id, 'view']">{{ trick.name }}</a></td>
                     <td>{{ trick.objectiveAmount }}</td>
                     <td>{{ trick.currentAmount }}</td>
                    

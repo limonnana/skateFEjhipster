@@ -15,6 +15,7 @@ export interface IEvent {
   players?: IPlayer[];
   photos?: IPhoto[];
   spot?: ISpot;
+  active?: boolean;
 }
 
 export class Event implements IEvent {
@@ -27,6 +28,7 @@ export class Event implements IEvent {
     public fans?: IFan[],
     public players?: IPlayer[],
     public photos?: IPhoto[],
-    public spot?: ISpot
+    public spot?: ISpot,
+    public active?: boolean
   ) {}
 }

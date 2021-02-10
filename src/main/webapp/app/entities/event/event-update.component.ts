@@ -26,6 +26,7 @@ export class EventUpdateComponent implements OnInit {
     dayString: [],
     name: [],
     spot: [],
+    active: [],
   });
 
   constructor(
@@ -70,6 +71,7 @@ export class EventUpdateComponent implements OnInit {
       dayString: event.dayString,
       name: event.name,
       spot: event.spot,
+      active: event.active,
     });
   }
 
@@ -95,6 +97,7 @@ export class EventUpdateComponent implements OnInit {
       dayString: this.editForm.get(['dayString'])!.value,
       name: this.editForm.get(['name'])!.value,
       spot: this.editForm.get(['spot'])!.value,
+      active: this.editForm.get(['active'])!.value,
     };
   }
 
