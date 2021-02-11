@@ -3,7 +3,6 @@
         <form name="addTrickForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="addTrickForm">
             <h2 id="jhi-event-heading">Add trick to Event</h2>
 
-            <div>
                 <jhi-alert-error></jhi-alert-error>
 
                 <div class="form-group" [hidden]="!addTrickForm.get('id')!.value">
@@ -30,4 +29,5 @@
                 </div>
             </form>
         </div>
-    </div>
+        </div>
+    

@@ -22,10 +22,26 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_fan">Fan</label>
+                    <label class="form-control-label" for="field_fan">Fan full name</label>
                     <input type="text" class="form-control" name="fan" id="fan"
                            formControlName="fan"/>
                 </div>
+
+                <div class="form-group">
+                    <pre class="card card-block card-header">Model: {{ contributionForm.value.state | json }}</pre>
+ 
+                  
+                      <input formControlName="state"
+                             [typeahead]="fans"
+                             typeaheadOptionField="fullName"
+                             [typeaheadOptionsLimit]="7"
+                             [typeaheadMinLength]="0"
+                             placeholder="Typeahead inside a form"
+                             (typeaheadOnSelect)="onSelect($event)"
+                             class="form-control">
+                    
+                    
+              </div>
                
            <button type="submit" id="save-entity" [disabled]="contributionForm.invalid || isSaving" class="btn btn-primary">
                     <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>

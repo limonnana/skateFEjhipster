@@ -3,7 +3,7 @@
         <form name="addPlayerForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="addPlayerForm">
             <h2 id="jhi-event-heading">Add player to Event</h2>
 
-            <div>
+           
                 <jhi-alert-error></jhi-alert-error>
 
                 <div class="form-group" [hidden]="!addPlayerForm.get('id')!.value">
