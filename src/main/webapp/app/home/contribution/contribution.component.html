@@ -1,5 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
+
+        <h3>New Trick Contribution</h3>
         <form name="contributionForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="contributionForm">
            
 
@@ -22,26 +24,24 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_fan">Fan full name</label>
-                    <input type="text" class="form-control" name="fan" id="fan"
-                           formControlName="fan"/>
+                    <label class="form-control-label" for="field_fan">Fan Full Name</label>
+                    <input formControlName="fan"
+                    name="fan" id="fan"
+                    [typeahead]="fans"
+                    typeaheadOptionField="fullName"
+                    [typeaheadOptionsLimit]="7"
+                    [typeaheadMinLength]="0"
+                    placeholder="AutoComplete"
+                    (typeaheadOnSelect)="onSelect($event)"
+                    class="form-control">
                 </div>
 
                 <div class="form-group">
-                    <pre class="card card-block card-header">Model: {{ contributionForm.value.state | json }}</pre>
- 
-                  
-                      <input formControlName="state"
-                             [typeahead]="fans"
-                             typeaheadOptionField="fullName"
-                             [typeaheadOptionsLimit]="7"
-                             [typeaheadMinLength]="0"
-                             placeholder="Typeahead inside a form"
-                             (typeaheadOnSelect)="onSelect($event)"
-                             class="form-control">
-                    
-                    
-              </div>
+                    <label class="form-control-label" for="field_phone">Phone</label>
+                    <input type="text" class="form-control" name="phone" id="phone"
+                           formControlName="phone"/>
+                </div>
+
                
            <button type="submit" id="save-entity" [disabled]="contributionForm.invalid || isSaving" class="btn btn-primary">
                     <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>

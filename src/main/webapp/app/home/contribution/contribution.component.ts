@@ -4,9 +4,11 @@ import { FormBuilder } from '@angular/forms';
 import { EventService } from 'app/entities/event/event.service';
 import { FanService } from 'app/entities/fan/fan.service';
 import { IEvent } from 'app/shared/model/event.model';
-import { Fan, IFan } from 'app/shared/model/fan.model';
+import { IFan } from 'app/shared/model/fan.model';
+import { IContributionForm, ContributionForm } from './contribution.form';
 import { ITrick } from 'app/shared/model/trick.model';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'jhi-contribution',
@@ -18,66 +20,15 @@ export class ContributionComponent implements OnInit {
   tricks?: ITrick[];
   fans: IFan[] = [];
   isSaving = false;
-  selectedOption: any;
-
-  states = [
-    'Alabama',
-    'Alaska',
-    'Arizona',
-    'Arkansas',
-    'California',
-    'Colorado',
-    'Connecticut',
-    'Delaware',
-    'Florida',
-    'Georgia',
-    'Hawaii',
-    'Idaho',
-    'Illinois',
-    'Indiana',
-    'Iowa',
-    'Kansas',
-    'Kentucky',
-    'Louisiana',
-    'Maine',
-    'Maryland',
-    'Massachusetts',
-    'Michigan',
-    'Minnesota',
-    'Mississippi',
-    'Missouri',
-    'Montana',
-    'Nebraska',
-    'Nevada',
-    'New Hampshire',
-    'New Jersey',
-    'New Mexico',
-    'New York',
-    'North Dakota',
-    'North Carolina',
-    'Ohio',
-    'Oklahoma',
-    'Oregon',
-    'Pennsylvania',
-    'Rhode Island',
-    'South Carolina',
-    'South Dakota',
-    'Tennessee',
-    'Texas',
-    'Utah',
-    'Vermont',
-    'Virginia',
-    'Washington',
-    'West Virginia',
-    'Wisconsin',
-    'Wyoming',
-  ];
+  selectedOption?: IFan;
+  fanId?: string;
 
   contributionForm = this.fb.group({
     amount: [],
+    fanId: [],
     fan: [],
     trick: [],
-    state: [],
+    phone: [],
   });
 
   constructor(private fb: FormBuilder, private eventService: EventService, private fanService: FanService) {}
@@ -103,30 +54,55 @@ export class ContributionComponent implements OnInit {
 
   onSelect(event: TypeaheadMatch): void {
     this.selectedOption = event.item;
-    alert(this.selectedOption.id + ' ' + this.selectedOption.fullName);
+    if (this.selectedOption != null) {
+      this.fanId = this.selectedOption.id;
+      this.contributionForm.patchValue({
+        phone: this.selectedOption.phone,
+      });
+    }
   }
 
-  /*
-
-  private createFromForm(): IEvent {
+  private createFromForm(): IContributionForm {
     return {
-      ...new Event(),
-      id: this.editForm.get(['id'])!.value,
-      day: this.editForm.get(['day'])!.value,
-      dayString: this.editForm.get(['dayString'])!.value,
-      name: this.editForm.get(['name'])!.value,
-      spot: this.editForm.get(['spot'])!.value,
-      active: this.editForm.get(['active'])!.value,
+      ...new ContributionForm(),
+      amount: this.contributionForm.get(['amount'])!.value,
+      trickId: this.contributionForm.get(['trick'])!.value,
+      fanId: this.fanId,
+      phone: this.contributionForm.get(['phone'])!.value,
+      fanFullName: this.contributionForm.get(['fan'])!.value,
     };
   }
- */
 
   save(): void {
     this.isSaving = true;
+
+    const contributionForm = this.createFromForm();
+
+    this.subscribeToSaveResponse(this.fanService.create(contributionForm));
   }
 
   trackById(index: number, item: ITrick): string {
     // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
     return item.id!;
+  }
+
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IEvent>>): void {
+    result.subscribe(
+      () => this.onSaveSuccess(),
+      () => this.onSaveError()
+    );
+  }
+
+  protected onSaveSuccess(): void {
+    this.isSaving = false;
+    this.previousState();
+  }
+
+  protected onSaveError(): void {
+    this.isSaving = false;
+  }
+
+  previousState(): void {
+    window.history.back();
   }
 }
