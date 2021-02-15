@@ -1,29 +1,33 @@
-<div class="row">
-    <div class="col-md-3">
-        <span class="hipster img-fluid rounded"></span>
-    </div>
-
-    <div class="col-md-9">
-        <h1 class="display-4">Welcome, Sean!</h1>
-
-        <p class="lead">Esta es tu pagina de administrador</p>
-
-        <div [ngSwitch]="isAuthenticated()">
-            <div class="alert alert-success" *ngSwitchCase="true">
-                <span id="home-logged-message" *ngIf="account">You are logged in as user "{{ account.login }}".</span>
-            </div>
-
-            <div class="alert alert-warning" *ngSwitchCase="false">
-                <span>If you want to </span>
-                <a class="alert-link" (click)="login()">sign in</a><span>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").</span>
-            </div>
-
-            <div class="alert alert-warning" *ngSwitchCase="false">
-                <span>You don't have an account yet?</span>&nbsp;
-                <a class="alert-link" routerLink="account/register">Register a new account</a>
-            </div>
+    <div>
+        <h2 id="page-heading">
+            <span>Tricks</span>
+        </h2>
+    
+        <jhi-alert-error></jhi-alert-error>
+    
+        <jhi-alert></jhi-alert>
+    
+        <div class="alert alert-warning" id="no-result" *ngIf="tricks?.length === 0">
+            <span>No tricks found</span>
         </div>
-
-      
-    </div>
+    
+        <div class="table-responsive" id="entities" *ngIf="tricks && tricks.length > 0">
+            <table class="table table-striped" aria-describedby="page-heading">
+                <thead>
+                    <tr>
+                        <th scope="col" ><span>Name</span></th>
+                        <th scope="col" ><span>Current Amount</span></th>
+                        <th scope="col" ><span>Target Amount</span></th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let trick of tricks ;trackBy: trackId">
+                        <td><a [routerLink]="['/trick', trick.id, 'view']">{{ trick.name }}</a></td>
+                        <td>{{ trick.currentAmount }}</td>
+                        <td>{{ trick.objectiveAmount }}</td>
+                        </tr>
+                        </tbody>
+            </table>
+        </div>
 </div>

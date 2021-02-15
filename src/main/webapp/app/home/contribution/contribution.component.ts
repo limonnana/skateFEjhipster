@@ -6,9 +6,13 @@ import { FanService } from 'app/entities/fan/fan.service';
 import { IEvent } from 'app/shared/model/event.model';
 import { IFan } from 'app/shared/model/fan.model';
 import { IContributionForm, ContributionForm } from './contribution.form';
+import { ContributionService } from './contribution.service';
 import { ITrick } from 'app/shared/model/trick.model';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+
+type EntityResponseType = HttpResponse<EntityResponseType>;
 
 @Component({
   selector: 'jhi-contribution',
@@ -31,7 +35,13 @@ export class ContributionComponent implements OnInit {
     phone: [],
   });
 
-  constructor(private fb: FormBuilder, private eventService: EventService, private fanService: FanService) {}
+  constructor(
+    private fb: FormBuilder,
+    private eventService: EventService,
+    private fanService: FanService,
+    private contributionService: ContributionService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.eventService.getActive().subscribe((res: HttpResponse<IEvent>) => {
@@ -66,7 +76,7 @@ export class ContributionComponent implements OnInit {
     return {
       ...new ContributionForm(),
       amount: this.contributionForm.get(['amount'])!.value,
-      trickId: this.contributionForm.get(['trick'])!.value,
+      trick: this.contributionForm.get(['trick'])!.value,
       fanId: this.fanId,
       phone: this.contributionForm.get(['phone'])!.value,
       fanFullName: this.contributionForm.get(['fan'])!.value,
@@ -78,7 +88,7 @@ export class ContributionComponent implements OnInit {
 
     const contributionForm = this.createFromForm();
 
-    this.subscribeToSaveResponse(this.fanService.create(contributionForm));
+    this.subscribeToSaveResponse(this.contributionService.create(contributionForm));
   }
 
   trackById(index: number, item: ITrick): string {
@@ -86,7 +96,7 @@ export class ContributionComponent implements OnInit {
     return item.id!;
   }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<IEvent>>): void {
+  protected subscribeToSaveResponse(result: Observable<EntityResponseType>): void {
     result.subscribe(
       () => this.onSaveSuccess(),
       () => this.onSaveError()
@@ -95,7 +105,7 @@ export class ContributionComponent implements OnInit {
 
   protected onSaveSuccess(): void {
     this.isSaving = false;
-    this.previousState();
+    this.router.navigate(['home']);
   }
 
   protected onSaveError(): void {

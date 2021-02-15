@@ -24,8 +24,8 @@
                 <tr>
                     <th scope="col" ><span>ID</span></th>
                     <th scope="col" ><span>Name</span></th>
-                    <th scope="col" ><span>Objective Amount</span></th>
                     <th scope="col" ><span>Current Amount</span></th>
+                    <th scope="col" ><span>Target Amount</span></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -33,8 +33,8 @@
                 <tr *ngFor="let trick of tricks ;trackBy: trackId">
                     <td><a [routerLink]="['/trick', trick.id, 'view']">{{ trick.id }}</a></td>
                     <td>{{ trick.name }}</td>
-                    <td>{{ trick.objectiveAmount }}</td>
                     <td>{{ trick.currentAmount }}</td>
+                    <td>{{ trick.objectiveAmount }}</td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"
