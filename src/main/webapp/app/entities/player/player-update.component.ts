@@ -5,8 +5,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { IPlayer, Player } from 'app/shared/model/player.model';
+import { IPlayer } from 'app/shared/model/player.model';
 import { PlayerService } from './player.service';
+import { IUserDTO, UserDTO } from 'app/shared/model/userDTO.model';
 
 @Component({
   selector: 'jhi-player-update',
@@ -20,7 +21,7 @@ export class PlayerUpdateComponent implements OnInit {
     name: [null, [Validators.required]],
     lastName: [],
     email: [],
-    phone: [],
+    phone: [null, [Validators.required]],
     country: [],
   });
 
@@ -35,11 +36,11 @@ export class PlayerUpdateComponent implements OnInit {
   updateForm(player: IPlayer): void {
     this.editForm.patchValue({
       id: player.id,
-      name: player.name,
-      lastName: player.lastName,
-      email: player.email,
-      phone: player.phone,
-      country: player.country,
+      name: player.user?.firstName,
+      lastName: player.user?.lastName,
+      email: player.user?.email,
+      phone: player.user?.phone,
+      country: player.user?.country,
     });
   }
 
@@ -49,19 +50,20 @@ export class PlayerUpdateComponent implements OnInit {
 
   save(): void {
     this.isSaving = true;
-    const player = this.createFromForm();
-    if (player.id !== undefined) {
-      this.subscribeToSaveResponse(this.playerService.update(player));
+    const userDTO = this.createFromForm();
+    if (userDTO.id !== undefined) {
+      this.subscribeToSaveResponse(this.playerService.update(userDTO));
     } else {
-      this.subscribeToSaveResponse(this.playerService.create(player));
+      this.subscribeToSaveResponse(this.playerService.create(userDTO));
     }
   }
 
-  private createFromForm(): IPlayer {
+  private createFromForm(): IUserDTO {
     return {
-      ...new Player(),
+      ...new UserDTO(),
       id: this.editForm.get(['id'])!.value,
-      name: this.editForm.get(['name'])!.value,
+      login: this.editForm.get(['phone'])!.value,
+      firstName: this.editForm.get(['name'])!.value,
       lastName: this.editForm.get(['lastName'])!.value,
       email: this.editForm.get(['email'])!.value,
       phone: this.editForm.get(['phone'])!.value,

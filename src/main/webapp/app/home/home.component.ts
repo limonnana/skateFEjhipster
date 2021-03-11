@@ -5,7 +5,8 @@ import { LoginModalService } from 'app/core/login/login-modal.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
 import { ITrick } from 'app/shared/model/trick.model';
-import { TrickService } from 'app/entities/trick/trick.service';
+import { EventService } from 'app/entities/event/event.service';
+import { IEvent } from 'app/shared/model/event.model';
 
 @Component({
   selector: 'jhi-home',
@@ -17,15 +18,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   authSubscription?: Subscription;
   tricks?: ITrick[];
 
-  constructor(private accountService: AccountService, private loginModalService: LoginModalService, protected trickService: TrickService) {}
+  constructor(private accountService: AccountService, private loginModalService: LoginModalService, protected eventService: EventService) {}
 
   ngOnInit(): void {
     this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
-    this.loadAll();
+    if (this.isAuthenticated()) {
+      this.loadTricks();
+    }
   }
 
-  loadAll(): void {
-    this.trickService.query().subscribe((res: HttpResponse<ITrick[]>) => (this.tricks = res.body || []));
+  loadTricks(): void {
+    this.eventService.getActive().subscribe((res: HttpResponse<IEvent>) => {
+      const event = res.body || undefined;
+      this.tricks = event?.tricks;
+    });
   }
 
   isAuthenticated(): boolean {

@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
 
-        <h4>New  Contribution</h4>
+        <h4>New  Cash for trick</h4>
         <form name="contributionForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="contributionForm">
            
 
@@ -24,11 +24,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-control-label" for="field_fan">Full Name</label>
-                    <input formControlName="fan"
-                    name="fan" id="fan"
-                    [typeahead]="fans"
-                    typeaheadOptionField="fullName"
+                    <label class="form-control-label" for="field_user">Full Name</label>
+                    <input formControlName="user"
+                    name="user" id="user"
+                    [typeahead]="users"
+                    typeaheadOptionField="lastName"
                     [typeaheadOptionsLimit]="7"
                     [typeaheadMinLength]="0"
                     placeholder="AutoComplete"

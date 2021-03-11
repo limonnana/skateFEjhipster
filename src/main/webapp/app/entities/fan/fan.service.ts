@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IFan } from 'app/shared/model/fan.model';
+import { IUserDTO } from 'app/shared/model/userDTO.model';
 
 type EntityResponseType = HttpResponse<IFan>;
 type EntityArrayResponseType = HttpResponse<IFan[]>;
@@ -15,11 +16,11 @@ export class FanService {
 
   constructor(protected http: HttpClient) {}
 
-  create(fan: IFan): Observable<EntityResponseType> {
+  create(fan: IUserDTO): Observable<EntityResponseType> {
     return this.http.post<IFan>(this.resourceUrl, fan, { observe: 'response' });
   }
 
-  update(fan: IFan): Observable<EntityResponseType> {
+  update(fan: IUserDTO): Observable<EntityResponseType> {
     return this.http.put<IFan>(this.resourceUrl, fan, { observe: 'response' });
   }
 

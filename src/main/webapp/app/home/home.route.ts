@@ -3,6 +3,7 @@ import { UserRouteAccessService } from 'app/core/auth/user-route-access-service'
 import { ContributionComponent } from './contribution/contribution.component';
 
 import { HomeComponent } from './home.component';
+import { StartComponent } from './start/start.component';
 
 export const HOME_ROUTE: Routes = [
   {
@@ -12,14 +13,23 @@ export const HOME_ROUTE: Routes = [
       authorities: [],
       pageTitle: 'Welcome, Sean!',
     },
+    canActivate: [UserRouteAccessService],
   },
   {
-    path: '',
+    path: 'new-contribution',
     component: ContributionComponent,
     data: {
       authorities: [],
-      pageTitle: 'Trick contribution!',
+      pageTitle: 'New Contribution !',
     },
     canActivate: [UserRouteAccessService],
+  },
+  {
+    path: '',
+    component: StartComponent,
+    data: {
+      authorities: [],
+      pageTitle: 'Welcome Sean !',
+    },
   },
 ];

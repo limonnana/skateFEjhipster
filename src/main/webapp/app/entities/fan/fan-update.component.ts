@@ -5,8 +5,9 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { IFan, Fan } from 'app/shared/model/fan.model';
+import { IFan } from 'app/shared/model/fan.model';
 import { FanService } from './fan.service';
+import { IUserDTO, UserDTO } from 'app/shared/model/userDTO.model';
 
 @Component({
   selector: 'jhi-fan-update',
@@ -14,18 +15,22 @@ import { FanService } from './fan.service';
 })
 export class FanUpdateComponent implements OnInit {
   isSaving = false;
+  fan?: IFan;
 
   editForm = this.fb.group({
     id: [],
-    fullName: [null, [Validators.required]],
+    name: [null, [Validators.required]],
+    lastName: [],
     email: [],
     phone: [],
+    country: [],
   });
 
   constructor(protected fanService: FanService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ fan }) => {
+      this.fan = fan;
       this.updateForm(fan);
     });
   }
@@ -33,9 +38,11 @@ export class FanUpdateComponent implements OnInit {
   updateForm(fan: IFan): void {
     this.editForm.patchValue({
       id: fan.id,
-      fullName: fan.fullName,
-      email: fan.email,
-      phone: fan.phone,
+      name: fan.user?.firstName,
+      lastName: fan.user?.lastName,
+      email: fan.user?.email,
+      phone: fan.user?.phone,
+      country: fan.user?.country,
     });
   }
 
@@ -53,13 +60,16 @@ export class FanUpdateComponent implements OnInit {
     }
   }
 
-  private createFromForm(): IFan {
+  private createFromForm(): IUserDTO {
     return {
-      ...new Fan(),
+      ...new UserDTO(),
       id: this.editForm.get(['id'])!.value,
-      fullName: this.editForm.get(['fullName'])!.value,
+      login: this.editForm.get(['phone'])!.value,
+      firstName: this.editForm.get(['name'])!.value,
+      lastName: this.editForm.get(['lastName'])!.value,
       email: this.editForm.get(['email'])!.value,
       phone: this.editForm.get(['phone'])!.value,
+      country: this.editForm.get(['country'])!.value,
     };
   }
 

@@ -1,19 +1,10 @@
+import { IUser } from 'app/core/user/user.model';
+
 export interface IPlayer {
   id?: string;
-  name?: string;
-  lastName?: string;
-  email?: string;
-  phone?: string;
-  country?: string;
+  user?: IUser;
 }
 
 export class Player implements IPlayer {
-  constructor(
-    public id?: string,
-    public name?: string,
-    public lastName?: string,
-    public email?: string,
-    public phone?: string,
-    public country?: string
-  ) {}
+  constructor(public id?: string, public user?: IUser) {}
 }

@@ -2,15 +2,15 @@ import { HttpResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { EventService } from 'app/entities/event/event.service';
-import { FanService } from 'app/entities/fan/fan.service';
 import { IEvent } from 'app/shared/model/event.model';
-import { IFan } from 'app/shared/model/fan.model';
 import { IContributionForm, ContributionForm } from './contribution.form';
 import { ContributionService } from './contribution.service';
 import { ITrick } from 'app/shared/model/trick.model';
 import { TypeaheadMatch } from 'ngx-bootstrap/typeahead/typeahead-match.class';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { IUser } from 'app/core/user/user.model';
+import { UserService } from 'app/core/user/user.service';
 
 type EntityResponseType = HttpResponse<EntityResponseType>;
 
@@ -22,15 +22,15 @@ type EntityResponseType = HttpResponse<EntityResponseType>;
 export class ContributionComponent implements OnInit {
   event?: IEvent | undefined;
   tricks?: ITrick[];
-  fans: IFan[] = [];
+  users: IUser[] = [];
   isSaving = false;
-  selectedOption?: IFan;
-  fanId?: string;
+  selectedOption?: IUser;
+  userId?: string;
 
   contributionForm = this.fb.group({
     amount: [],
-    fanId: [],
-    fan: [],
+    userId: [],
+    user: [],
     trick: [],
     phone: [],
   });
@@ -38,7 +38,7 @@ export class ContributionComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private eventService: EventService,
-    private fanService: FanService,
+    private userService: UserService,
     private contributionService: ContributionService,
     private router: Router
   ) {}
@@ -59,13 +59,13 @@ export class ContributionComponent implements OnInit {
   }
 
   loadAll(): void {
-    this.fanService.query().subscribe((res: HttpResponse<IFan[]>) => (this.fans = res.body || []));
+    this.userService.query().subscribe((res: HttpResponse<IUser[]>) => (this.users = res.body || []));
   }
 
   onSelect(event: TypeaheadMatch): void {
     this.selectedOption = event.item;
     if (this.selectedOption != null) {
-      this.fanId = this.selectedOption.id;
+      this.userId = this.selectedOption.id;
       this.contributionForm.patchValue({
         phone: this.selectedOption.phone,
       });
@@ -77,9 +77,9 @@ export class ContributionComponent implements OnInit {
       ...new ContributionForm(),
       amount: this.contributionForm.get(['amount'])!.value,
       trick: this.contributionForm.get(['trick'])!.value,
-      fanId: this.fanId,
+      userId: this.userId,
       phone: this.contributionForm.get(['phone'])!.value,
-      fanFullName: this.contributionForm.get(['fan'])!.value,
+      userFullName: this.contributionForm.get(['user'])!.value,
     };
   }
 

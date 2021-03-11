@@ -117,8 +117,8 @@
             </thead>
             <tbody>
                 <tr *ngFor="let player of players ;trackBy: trackPlayerId">
-                    <td><a [routerLink]="['/player', player.id, 'view']">{{ player.name }}</a></td>
-                    <td>{{ player.lastName }}</td>
+                    <td><a [routerLink]="['/player', player.id, 'view']">{{ player.user?.firstName }}</a></td>
+                    <td>{{ player.user?.lastName }}</td>
                    
                 </tr>
             </tbody>

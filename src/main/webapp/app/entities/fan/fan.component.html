@@ -32,9 +32,9 @@
             <tbody>
                 <tr *ngFor="let fan of fans ;trackBy: trackId">
                     <td><a [routerLink]="['/fan', fan.id, 'view']">{{ fan.id }}</a></td>
-                    <td>{{ fan.fullName }}</td>
-                    <td>{{ fan.email }}</td>
-                    <td>{{ fan.phone }}</td>
+                    <td>{{ fan.user?.firstName }} {{ fan.user?.lastName }}</td>
+                    <td>{{ fan.user?.email }}</td>
+                    <td>{{ fan.user?.phone }}</td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"

@@ -10,15 +10,15 @@
             <dl class="row-md jh-entity-details">
                 <dt><span>Full Name</span></dt>
                 <dd>
-                    <span>{{ fan.fullName }}</span>
+                    <span>{{ fan.user?.firstName }} {{ fan.user?.lastName }}</span>
                 </dd>
                 <dt><span>Email</span></dt>
                 <dd>
-                    <span>{{ fan.email }}</span>
+                    <span>{{ fan.user?.email }}</span>
                 </dd>
                 <dt><span>Phone</span></dt>
                 <dd>
-                    <span>{{ fan.phone }}</span>
+                    <span>{{ fan.user?.phone }}</span>
                 </dd>
                
             </dl>

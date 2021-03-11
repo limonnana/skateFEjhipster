@@ -10,23 +10,23 @@
             <dl class="row-md jh-entity-details">
                 <dt><span>Name</span></dt>
                 <dd>
-                    <span>{{ player.name }}</span>
+                    <span>{{ player.user?.firstName }}</span>
                 </dd>
                 <dt><span>Last Name</span></dt>
                 <dd>
-                    <span>{{ player.lastName }}</span>
+                    <span>{{ player.user?.lastName }}</span>
                 </dd>
                 <dt><span>Email</span></dt>
                 <dd>
-                    <span>{{ player.email }}</span>
+                    <span>{{ player.user?.email }}</span>
                 </dd>
                 <dt><span>Phone</span></dt>
                 <dd>
-                    <span>{{ player.phone }}</span>
+                    <span>{{ player.user?.phone }}</span>
                 </dd>
                 <dt><span>Country</span></dt>
                 <dd>
-                    <span>{{ player.country }}</span>
+                    <span>{{ player.user?.country }}</span>
                 </dd>
             </dl>
 
@@ -41,6 +41,13 @@
                     class="btn btn-primary">
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
             </button>
+
+            <button type="button"
+            [routerLink]="['/player', player.id, 'addImage']"
+            class="btn btn-primary">
+           <fa-icon icon="plus"></fa-icon>
+           <span>Add Image</span>
+           </button>
         </div>
     </div>
 </div>

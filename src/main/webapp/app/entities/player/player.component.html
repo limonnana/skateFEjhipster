@@ -1,8 +1,8 @@
 <div>
     <h2 id="page-heading">
         <span>Players</span>
-
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-player" [routerLink]="['/player/new']">
+      
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-player" [routerLink]="['./new']">
             <fa-icon icon="plus"></fa-icon>
             <span>
             Create a new Player
@@ -22,9 +22,7 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr>
-                    <th scope="col" ><span>ID</span></th>
                     <th scope="col" ><span>Name</span></th>
-                    <th scope="col" ><span>Last Name</span></th>
                     <th scope="col" ><span>Email</span></th>
                     <th scope="col" ><span>Phone</span></th>
                     <th scope="col" ><span>Country</span></th>
@@ -33,12 +31,10 @@
             </thead>
             <tbody>
                 <tr *ngFor="let player of players ;trackBy: trackId">
-                    <td><a [routerLink]="['/player', player.id, 'view']">{{ player.id }}</a></td>
-                    <td>{{ player.name }}</td>
-                    <td>{{ player.lastName }}</td>
-                    <td>{{ player.email }}</td>
-                    <td>{{ player.phone }}</td>
-                    <td>{{ player.country }}</td>
+                    <td><a [routerLink]="['/player', player.id, 'view']">{{ player.user?.firstName}} &nbsp; {{ player.user?.lastName }}</a></td>
+                    <td>{{ player.user?.email }}</td>
+                    <td>{{ player.user?.phone }}</td>
+                    <td>{{ player.user?.country }}</td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"
