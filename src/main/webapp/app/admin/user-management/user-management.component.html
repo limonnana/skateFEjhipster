@@ -18,6 +18,8 @@
                     <th scope="col"  jhiSortBy="id"><span>Name</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="login"><span>Login</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="email"><span>Email</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="phone"><span>Phone</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col" ><span>Is  Player</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                     <th scope="col"><span>Profiles</span></th>
                     <th scope="col" jhiSortBy="createdDate"><span>Created Date</span> <fa-icon icon="sort"></fa-icon></th>
@@ -31,6 +33,12 @@
                     <td><a [routerLink]="['./', user.login, 'view']">{{ user.firstName }} {{ user.lastName }}</a></td>
                     <td>{{ user.login }}</td>
                     <td>{{ user.email }}</td>
+                    <td>{{ user.phone }}</td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" (click)="setPlayer(user, true)" *ngIf="user.player == null || !user.player">No</button>
+                        <button class="btn btn-success btn-sm" (click)="setPlayer(user, false)" *ngIf="user.player"
+                                [disabled]="!currentAccount || currentAccount.login === user.login">Yes</button>
+                    </td>
                     <td>
                         <button class="btn btn-danger btn-sm" (click)="setActive(user, true)" *ngIf="!user.activated">Deactivated</button>
                         <button class="btn btn-success btn-sm" (click)="setActive(user, false)" *ngIf="user.activated"

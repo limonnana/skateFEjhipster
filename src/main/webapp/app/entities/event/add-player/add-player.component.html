@@ -1,14 +1,14 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <form name="addPlayerForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="addPlayerForm">
-            <h2 id="jhi-event-heading">Add player to Event</h2>
+            <h3 id="jhi-event-heading">New player for: {{event?.name}} </h3> 
 
            
                 <jhi-alert-error></jhi-alert-error>
 
                 <div class="form-group" [hidden]="!addPlayerForm.get('id')!.value">
-                    <label for="id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                    
+                    <input type="text" hidden class="form-control" id="id" name="id" formControlName="id" readonly />
                 </div>
 
                 <div class="form-group">

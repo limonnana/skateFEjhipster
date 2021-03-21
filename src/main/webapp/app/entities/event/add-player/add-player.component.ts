@@ -27,6 +27,7 @@ export class AddPlayerForm {
 export class AddPlayerComponent implements OnInit {
   players?: IPlayer[];
   isSaving = false;
+  event?: IEvent;
 
   addPlayerForm = this.fb.group({
     id: [],
@@ -43,7 +44,7 @@ export class AddPlayerComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ event }) => {
       this.updateForm(event);
-
+      this.event = event;
       this.playerService
         .query({ filter: 'event-is-null' })
         .pipe(

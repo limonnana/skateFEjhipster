@@ -2,7 +2,7 @@
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h3 id="myUserLabel">
-                Create / edit a user or Player
+                Create / edit a user or Player 
             </h3>
 
             <div *ngIf="user">
@@ -13,6 +13,7 @@
                     <input type="text" class="form-control" name="id" formControlName="id" readonly>
                 </div>
 
+                <input type="text" [hidden] name="login" formControlName="login" hidden>
 
                 <div class="form-group">
                     <label class="form-control-label">First Name</label>
@@ -42,22 +43,22 @@
 
                 <div class="form-group">
                     <label class="form-control-label">Phone</label>
-                    <input type="text" class="form-control" name="login"
-                           formControlName="login">
+                    <input type="text" class="form-control" name="phone"
+                           formControlName="phone">
 
-                    <div *ngIf="editForm.get('login')!.invalid && (editForm.get('login')!.dirty || editForm.get('login')!.touched)">
+                    <div *ngIf="editForm.get('phone')!.invalid && (editForm.get('phone')!.dirty || editForm.get('phone')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('login')?.errors?.required">
+                               *ngIf="editForm.get('phone')?.errors?.required">
                             This field is required.
                         </small>
 
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('login')?.errors?.maxlength">
+                               *ngIf="editForm.get('phone')?.errors?.maxlength">
                             This field cannot be longer than 50 characters.
                         </small>
 
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('login')?.errors?.pattern">
+                               *ngIf="editForm.get('phone')?.errors?.pattern">
                             This field can only contain letters, digits and e-mail addresses.
                         </small>
                     </div>
@@ -96,8 +97,15 @@
                                type="checkbox" id="activated" name="activated" formControlName="activated">
                         <span>Activated</span>
                     </label>
+                    &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;
+                    <label class="form-check-label" for="player">
+                        <input class="form-check-input"
+                               type="checkbox" id="player" name="player" formControlName="player">
+                        <span>Is a Player</span>
+                    </label>
                 </div>
 
+              
                 <div class="form-group">
                     <label>Profiles</label>
                     <select class="form-control" multiple name="authority" formControlName="authorities">
@@ -111,7 +119,7 @@
                     <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
                 </button>
 
-                <button type="submit" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                <button type="submit"  class="btn btn-primary">
                     <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
                 </button>
             </div>

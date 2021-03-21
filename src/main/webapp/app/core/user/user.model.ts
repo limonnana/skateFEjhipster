@@ -6,6 +6,7 @@ export interface IUser {
   phone?: string;
   email?: string;
   country?: string;
+  player?: boolean;
   activated?: boolean;
   langKey?: string;
   authorities?: string[];
@@ -25,6 +26,7 @@ export class User implements IUser {
     public phone?: string,
     public email?: string,
     public country?: string,
+    public player?: boolean,
     public activated?: boolean,
     public langKey?: string,
     public authorities?: string[],

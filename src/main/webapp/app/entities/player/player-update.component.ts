@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import { IPlayer } from 'app/shared/model/player.model';
 import { PlayerService } from './player.service';
 import { IUserDTO, UserDTO } from 'app/shared/model/userDTO.model';
+import { IEvent } from 'app/shared/model/event.model';
+import { EventService } from '../event/event.service';
 
 @Component({
   selector: 'jhi-player-update',
@@ -15,6 +17,8 @@ import { IUserDTO, UserDTO } from 'app/shared/model/userDTO.model';
 })
 export class PlayerUpdateComponent implements OnInit {
   isSaving = false;
+  events?: IEvent[];
+  isNotEditing = false;
 
   editForm = this.fb.group({
     id: [],
@@ -23,14 +27,28 @@ export class PlayerUpdateComponent implements OnInit {
     email: [],
     phone: [null, [Validators.required]],
     country: [],
+    event: [],
   });
 
-  constructor(protected playerService: PlayerService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(
+    protected playerService: PlayerService,
+    protected eventService: EventService,
+    protected activatedRoute: ActivatedRoute,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ player }) => {
+      if (player === null || player === undefined || player?.id === null || player?.id === undefined) {
+        this.isNotEditing = true;
+      }
       this.updateForm(player);
     });
+    this.loadAllEvents();
+  }
+
+  loadAllEvents(): void {
+    this.eventService.query().subscribe((res: HttpResponse<IEvent[]>) => (this.events = res.body || []));
   }
 
   updateForm(player: IPlayer): void {
@@ -85,5 +103,9 @@ export class PlayerUpdateComponent implements OnInit {
 
   protected onSaveError(): void {
     this.isSaving = false;
+  }
+
+  trackById(index: number, item: IEvent): any {
+    return item.id;
   }
 }

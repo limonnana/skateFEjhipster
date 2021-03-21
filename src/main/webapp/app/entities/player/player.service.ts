@@ -5,7 +5,6 @@ import { Observable } from 'rxjs';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IPlayer } from 'app/shared/model/player.model';
-import { IUserDTO } from 'app/shared/model/userDTO.model';
 import { IUser } from 'app/core/user/user.model';
 
 type EntityResponseType = HttpResponse<IPlayer>;

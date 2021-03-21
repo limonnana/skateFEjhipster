@@ -51,6 +51,10 @@ export class UserManagementComponent implements OnInit, OnDestroy {
     this.userService.update({ ...user, activated: isActivated }).subscribe(() => this.loadAll());
   }
 
+  setPlayer(user: User, isPlayer: boolean): void {
+    this.userService.update({ ...user, player: isPlayer }).subscribe(() => this.loadAll());
+  }
+
   trackIdentity(index: number, item: User): any {
     return item.id;
   }

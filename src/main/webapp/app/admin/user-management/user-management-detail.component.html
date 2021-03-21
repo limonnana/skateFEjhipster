@@ -17,13 +17,16 @@
                 </dd>
 
                 <dt><span>First Name</span></dt>
-                <dd>{{ user.firstName }}</dd>
+                <dd>{{ user.firstName }} </dd>
 
                 <dt><span>Last Name</span></dt>
                 <dd>{{ user.lastName }}</dd>
 
                 <dt><span>Email</span></dt>
                 <dd>{{ user.email }}</dd>
+
+                <dt><span>Phone</span></dt>
+                <dd>{{ user.phone }}</dd>
 
                 <dt><span>Created By</span></dt>
                 <dd>{{ user.createdBy }}</dd>
@@ -45,6 +48,8 @@
                         </li>
                     </ul>
                 </dd>
+                <dt><span>Is Player</span></dt>
+                <dd> <span class="badge badge-info">{{ user.player }}</span></dd>
             </dl>
 
             <button type="submit" routerLink="../../" class="btn btn-info">
