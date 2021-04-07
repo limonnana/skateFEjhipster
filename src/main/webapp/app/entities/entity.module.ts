@@ -5,10 +5,6 @@ import { RouterModule } from '@angular/router';
   imports: [
     RouterModule.forChild([
       {
-        path: 'fan',
-        loadChildren: () => import('./fan/fan.module').then(m => m.JhipsterFrontEndFanModule),
-      },
-      {
         path: 'player',
         loadChildren: () => import('./player/player.module').then(m => m.JhipsterFrontEndPlayerModule),
       },

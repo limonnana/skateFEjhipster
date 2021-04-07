@@ -1,6 +1,5 @@
 import { Moment } from 'moment';
 import { ITrick } from 'app/shared/model/trick.model';
-import { IFan } from 'app/shared/model/fan.model';
 import { IPlayer } from 'app/shared/model/player.model';
 import { ISpot } from 'app/shared/model/spot.model';
 import { IPhoto } from './photo.model';
@@ -11,7 +10,6 @@ export interface IEvent {
   dayString?: string;
   name?: string;
   tricks?: ITrick[];
-  fans?: IFan[];
   players?: IPlayer[];
   photos?: IPhoto[];
   spot?: ISpot;
@@ -25,7 +23,6 @@ export class Event implements IEvent {
     public dayString?: string,
     public name?: string,
     public tricks?: ITrick[],
-    public fans?: IFan[],
     public players?: IPlayer[],
     public photos?: IPhoto[],
     public spot?: ISpot,

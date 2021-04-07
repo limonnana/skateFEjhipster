@@ -22,7 +22,6 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
                 <tr>
-                    <th scope="col" ><span>ID</span></th>
                     <th scope="col" ><span>Name</span></th>
                     <th scope="col" ><span>Current Amount</span></th>
                     <th scope="col" ><span>Target Amount</span></th>
@@ -31,8 +30,7 @@
             </thead>
             <tbody>
                 <tr *ngFor="let trick of tricks ;trackBy: trackId">
-                    <td><a [routerLink]="['/trick', trick.id, 'view']">{{ trick.id }}</a></td>
-                    <td>{{ trick.name }}</td>
+                    <td><a [routerLink]="['/trick', trick.id, 'view']">{{ trick.name }}</a></td>
                     <td>{{ trick.currentAmount }}</td>
                     <td>{{ trick.objectiveAmount }}</td>
                     <td class="text-right">
