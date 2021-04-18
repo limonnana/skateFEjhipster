@@ -8,8 +8,7 @@
                 <jhi-alert-error></jhi-alert-error>
 
                 <div class="form-group" [hidden]="!editForm.get('id')!.value">
-                    <label for="id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                    <input type="text" class="form-control" id="id" hidden name="id" formControlName="id" readonly />
                 </div>
 
                 <div class="form-group" *ngIf="isNotEditing == true">

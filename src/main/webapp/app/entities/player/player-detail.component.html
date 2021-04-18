@@ -1,7 +1,7 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="player">
-            <h2><span>Player</span> {{ player.id }}</h2>
+            <h4>Player</h4>
 
             <hr>
 
@@ -42,12 +42,6 @@
                 <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
             </button>
 
-            <button type="button"
-            [routerLink]="['/player', player.id, 'addImage']"
-            class="btn btn-primary">
-           <fa-icon icon="plus"></fa-icon>
-           <span>Add Image</span>
-           </button>
         </div>
     </div>
 </div>
